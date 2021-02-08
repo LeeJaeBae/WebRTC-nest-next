@@ -1,8 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable, Param, Render } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  @Render('Index')
+  @Get()
+  static index(@Param('title') title?: string) {
+    return { title };
+  }
+
+  @Render('Page')
+  @Get()
+  static page(@Param('id') id?: string) {
+    return { id };
   }
 }

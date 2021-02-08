@@ -1,18 +1,23 @@
 import { NextPage } from 'next';
+import Link from 'next/link';
 import React from 'react';
 
-interface Props {
-  query: { title: string };
+type Props = {
+  title: string
 }
 
-const Index: NextPage<Props> = ({ query }) => {
-  const title = query.title ? query.title : 'Nest-Next';
-  return <div>Hello, {title}</div>;
+const Index: NextPage<Props> = ({ title }) => {
+  return <div>Hello, {title}
+    <Link href={`/id/${title}`}>
+      <div>{title}</div>
+    </Link>
+  </div>;
 };
 
-Index.getInitialProps = async (ctx) => {
-  const { query } = ctx;
-  return { query };
+Index.getInitialProps = (ctx): Props => {
+  console.log(ctx.query);
+  const { title } = ctx.query;
+  return { title } as Props;
 };
 
 export default Index;
